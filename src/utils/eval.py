@@ -20,6 +20,8 @@ def cal_acc(
         - then, transpose the tensor to the shape of [16, 5]
         - compare the preds and labels tensors together
     """
+    import ipdb
+    ipdb.set_trace()
     labels = utils.concat_tensors(labels, device)
     preds = torch.transpose(preds, 1, 0)
     elementwise_comparison = torch.eq(labels, preds)

@@ -29,7 +29,7 @@ class ModelTester(object):
     def run(
             self
         ) -> None:
-        train_dict = self.report(constants.TRAIN, self.model.train_data_handler)
+        #train_dict = self.report(constants.TRAIN, self.model.train_data_handler)
         val_dict = self.report(constants.VAL, self.model.val_data_handler)
         result = {
             constants.VAL : val_dict,
@@ -47,7 +47,10 @@ class ModelTester(object):
         result_df = self.predict(dataset_handler)
         preds = result_df[constants.PREDICT]
         labels = result_df[constants.LABEL.upper()]
-        mA = utils.cal_acc(torch.Tensor(preds), labels)
+        import ipdb
+        ipdb.set_trace()
+        mA = utils.cal_acc(torch.Tensor(preds, device=self.device),\
+                                                            labels, self.device)
         return {
             "mA" : mA
         }
@@ -60,11 +63,12 @@ class ModelTester(object):
         result_df = {
             constants.FILE_ID       : [],
             constants.PREDICT       : [],
-            constants.MEAN_ACC      : [],
             constants.LABEL.upper() : []
         }
+        counter = 0
         for sample in tqdm(dataset_handler):
             if 'aug' in sample[constants.IMAGE_FILE]:
+                print("I am here")
                 continue
             image_file = sample[constants.IMAGE_FILE]
             file_id = utils.get_path_basename(image_file)
@@ -76,6 +80,9 @@ class ModelTester(object):
             result_df[constants.FILE_ID].append(file_id)
             result_df[constants.PREDICT].append(pred)
             result_df[constants.LABEL.upper()].append(label)
+            if counter == 10:
+                break
+            counter += 1
         result_df = utils.create_df(result_df)
         return result_df
 
