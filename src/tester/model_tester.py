@@ -45,8 +45,11 @@ class ModelTester(object):
             dataset_handler: DatasetHandler,
         ) -> dict:
         result_df = self.predict(dataset_handler)
+        preds = result_df[constants.PREDICT]
+        labels = result_df[constants.LABEL.upper()]
+        mA = utils.cal_acc(torch.Tensor(preds), labels)
         return {
-            "mA" : None
+            "mA" : mA
         }
     
     @torch.no_grad()
@@ -73,7 +76,7 @@ class ModelTester(object):
             result_df[constants.FILE_ID].append(file_id)
             result_df[constants.PREDICT].append(pred)
             result_df[constants.LABEL.upper()].append(label)
-            
+        result_df = utils.create_df(result_df)
         return result_df
 
     def load_checkpoint(
@@ -87,7 +90,7 @@ class ModelTester(object):
         model.to(self.device)
         model.eval()
         return model
-    
+
     def setup(
             self
         ) -> None:
