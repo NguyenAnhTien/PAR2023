@@ -9,8 +9,7 @@ from pytorch_lightning.loggers import WandbLogger
 
 import utils
 import constants
-
-from test import ModelTester
+from tester import ModelTester
 from network import Classifier
 from configs import Configurer
 from dataset import DatasetHandler
