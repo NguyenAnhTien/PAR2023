@@ -90,5 +90,5 @@ class ModelTester(object):
             self
         ) -> None:
         self.model = self.load_checkpoint()
-        image_dir = utils.join_path((configs.TEST_DIR, constants.IMAGES))
+        image_dir = utils.join_path((configs.preprocess_dir, constants.VAL))
         self.dataset_handler = DatasetHandler(image_dir)
