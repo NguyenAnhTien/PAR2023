@@ -5,6 +5,7 @@
 import pickle
 import json
 
+from .datetime import get_time_now
 from .paths import get_path_basename
 
 def read_txt_file(
@@ -61,3 +62,11 @@ def parse_fiel_id(
     ) -> str:
     basename, _ = get_path_basename(image_file)
     return basename
+
+def create_report_name():
+    now = get_time_now()
+    report_name = ""
+    for item in now[:-1]:
+        report_name += str(item)
+    report_name += str(now[-1])
+    return report_name
