@@ -16,14 +16,16 @@ YAML_DIR     = 'yamls'
 IMAGE_FILE   = 'image_file'
 PREPROCESS   = 'preprocess'
 
-VAL_ACC = 'val_acc'
-VAL_LOSS = 'val_loss'
-TRAIN_ACC = 'train_acc'
-TRAIN_LOSS = 'train_loss'
+VAL_ACC      = 'val_acc'
+VAL_LOSS     = 'val_loss'
+TRAIN_ACC    = 'train_acc'
+TRAIN_LOSS   = 'train_loss'
 
-CHECKPOINT = "checkpoint"
-REPORT_FILE = "performance.json"
+CHECKPOINT   = "checkpoint"
+REPORT_FILE  = "performance.json"
 
-MEAN_ACC  = 'MEAN_AC'
-FILE_ID   = 'FILE_ID'
-PREDICT   = 'PREDICT'
+MEAN_ACC     = 'MEAN_AC'
+FILE_ID      = 'FILE_ID'
+PREDICT      = 'PREDICT'
+
+LOG_DIR      = 'logs'

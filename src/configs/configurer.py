@@ -22,6 +22,7 @@ class Configurer(object):
         self.preprocess_dir = utils.join_path((self.data_dir,\
                                                         constants.PREPROCESS))
         self.src      = utils.join_path((self.root_dir, constants.SRC))
+        self.log_dir  = utils.join_path((self.root_dir, constants.LOG_DIR))
         self.configs  = utils.join_path((self.src, constants.YAML_DIR))
 
     def parse(
