@@ -7,8 +7,8 @@ from tqdm import tqdm
 import torch
 
 import utils
-import configs
 import constants
+from configs import Configurer
 from network import Classifier
 from dataset import DatasetHandler
 
@@ -16,10 +16,12 @@ class ModelTester(object):
     def __init__(
             self,
             device: str,
+            configs: Configurer,
             checkpoint: str, 
             report_dir: str
         ) -> None:
         self.device = device
+        self.configs = configs
         self.checkpoint = checkpoint
         self.report_dir = report_dir
         self.setup()
@@ -90,5 +92,5 @@ class ModelTester(object):
             self
         ) -> None:
         self.model = self.load_checkpoint()
-        image_dir = utils.join_path((configs.preprocess_dir, constants.VAL))
+        image_dir = utils.join_path((self.configs.preprocess_dir, constants.VAL))
         self.dataset_handler = DatasetHandler(image_dir)

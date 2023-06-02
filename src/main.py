@@ -81,7 +81,8 @@ def test_model(
     checkpoint = args.checkpoint
     report_dir = utils.join_path((configs.log_dir,\
                                                 utils.create_report_name()))
-    model_tester = ModelTester(device=gpu, checkpoint=checkpoint,\
+    model_tester = ModelTester(device=gpu, configs=configs,\
+                                            checkpoint=checkpoint,\
                                                         report_dir=report_dir)
     model_tester.run()
 
