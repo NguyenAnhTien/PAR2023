@@ -20,7 +20,7 @@ class ModelTester(object):
             checkpoint: str, 
             report_dir: str
         ) -> None:
-        self.device = device
+        self.device = torch.device(device)
         self.configs = configs
         self.checkpoint = checkpoint
         self.report_dir = report_dir

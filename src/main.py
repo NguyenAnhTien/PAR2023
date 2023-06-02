@@ -77,7 +77,7 @@ def test_model(
         args,
         configs: Configurer,
     ):
-    gpu = args.gpu if args.gpu > -1 else 1
+    device = "cuda" if args.gpu > -1 else "cpu"
     checkpoint = args.checkpoint
     report_dir = utils.join_path((configs.log_dir,\
                                                 utils.create_report_name()))
