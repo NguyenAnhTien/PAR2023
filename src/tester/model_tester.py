@@ -29,8 +29,8 @@ class ModelTester(object):
     def run(
             self
         ) -> None:
-        train_dict = self.report(self.model.train_data_handler, constants.TRAIN)
-        val_dict = self.report(self.model.val_data_handler, constants.VAL)
+        train_dict = self.report(constants.TRAIN, self.model.train_data_handler)
+        val_dict = self.report(constants.VAL, self.model.val_data_handler)
         result = {
             constants.VAL : val_dict,
             constants.TRAIN : train_dict,
