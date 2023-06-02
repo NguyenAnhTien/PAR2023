@@ -44,7 +44,7 @@ class ModelTester(object):
             phase: str,
             dataset_handler: DatasetHandler,
         ) -> dict:
-        result_df = self.predict(dataset_handler, phase)
+        result_df = self.predict(dataset_handler)
         return {
             "mA" : None
         }
