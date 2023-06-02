@@ -10,3 +10,4 @@ from .utils import *
 from .yaml import *
 from .eval import *
 from .tensor import *
+from .tabular import *

@@ -68,12 +68,12 @@ class ModelTester(object):
             image = sample[constants.IMAGE]
             label = sample[constants.LABEL]
             image = image.to(self.device)
-            output = self.model.predict(image)
+            pred = self.model.predict(image)
+            pred = pred.cpu().detach().tolist()
             result_df[constants.FILE_ID].append(file_id)
-            result_df[constants.PREDICT].append(output)
+            result_df[constants.PREDICT].append(pred)
             result_df[constants.LABEL.upper()].append(label)
-            import ipdb
-            ipdb.set_trace()
+            
         return result_df
 
     def load_checkpoint(
