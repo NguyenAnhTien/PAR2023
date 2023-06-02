@@ -79,7 +79,7 @@ def test_model(
     ):
     gpu = args.gpu if args.gpu > -1 else 1
     checkpoint = args.checkpoint
-    report_dir = utils.join_path((constants.LOG_DIR,\
+    report_dir = utils.join_path((configs.log_dir,\
                                                 utils.create_report_name()))
     model_tester = ModelTester(device=gpu, checkpoint=checkpoint,\
                                                         report_dir=report_dir)
