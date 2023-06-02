@@ -71,7 +71,7 @@ class ModelTester(object):
             output = self.model.predict(image)
             result_df[constants.FILE_ID].append(file_id)
             result_df[constants.PREDICT].append(output)
-            result_df[constants.LABEL].append(label)
+            result_df[constants.LABEL.upper()].append(label)
             import ipdb
             ipdb.set_trace()
         return result_df
