@@ -49,7 +49,7 @@ class ModelTester(object):
         labels = result_df[constants.LABEL.upper()]
         import ipdb
         #ipdb.set_trace()
-        mA = utils.cal_acc(torch.Tensor(preds, device=self.device),\
+        mA = utils.cal_acc(torch.tensor(preds, device=self.device),\
                                                             labels, self.device)
         return {
             "mA" : mA
