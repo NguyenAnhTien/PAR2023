@@ -43,7 +43,7 @@ class Classifier(pl.LightningModule):
         ):
         if len(images.shape) == 3:
             images = images.unsqueeze(0)
-        outputs = self.model(images)
+        outputs = self.model.predict(images)
         return outputs
 
     def training_step(
