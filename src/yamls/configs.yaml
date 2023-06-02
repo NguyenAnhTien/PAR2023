@@ -1,0 +1,23 @@
+experiment:
+    seed : 2022
+    training : true
+    pretrain : true
+
+hyperparams:
+    batch_size   : 16
+    lr           : 0.001
+    weight_decay : 0
+    epochs       : 100
+    model_name   : 'resnet'
+
+dataset:
+    dataset_dir   : 'PAR2023'
+    train_dir     : 'training_set'
+    val_dir       : 'validation_set'
+    val_labels    : 'validation_set.txt'
+    train_labels  : 'training_set.txt'
+    img_format    : '.jpg'
+    mean          : [0.485, 0.456, 0.406]
+    std           : [0.229, 0.224, 0.225]
+    num_classes   : [12, 12, 3, 3, 3]
+    invalid_label : -1
