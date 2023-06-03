@@ -105,6 +105,9 @@ class ModelTester(object):
     def setup(
             self
         ) -> None:
+        utils.mkdir(self.report_dir)
+        utils.mkdir(utils.join_path((self.report_dir, constants.TRAIN)))
+        utils.mkdir(utils.join_path((self.report_dir, constants.VAL)))
         self.model = self.load_checkpoint()
         image_dir = utils.join_path((self.configs.preprocess_dir, constants.VAL))
         self.dataset_handler = DatasetHandler(image_dir)

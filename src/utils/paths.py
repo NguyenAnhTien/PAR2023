@@ -38,9 +38,3 @@ def get_path_basename(
     basename = '.'.join(segments[:-1])
     return basename, file_ext
 
-def clean_dir(data_dir):
-    """
-    @desc:
-        - Remove all images and annos files in images and annos directory
-    """
-    os.system(f'find {data_dir} -name "*.pkl" -print0 | xargs -0 rm')
