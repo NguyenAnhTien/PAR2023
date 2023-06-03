@@ -22,8 +22,10 @@ def cal_acc(
     """
     import ipdb
     ipdb.set_trace()
-    labels = utils.concat_tensors(labels, device)
-    preds = torch.transpose(preds, 1, 0)
+    if not (isinstance(labels, torch.Tensor) \
+                        and isinstance(preds, torch.Tensor)):
+        labels = utils.concat_tensors(labels, device)
+        preds = torch.transpose(preds, 1, 0)
     elementwise_comparison = torch.eq(labels, preds)
     matching_rows = torch.sum(elementwise_comparison, dim=1)
     accs = matching_rows / labels.shape[1]
