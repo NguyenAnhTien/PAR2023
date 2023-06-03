@@ -31,6 +31,8 @@ class ModelTester(object):
         ) -> None:
         #train_dict = self.report(constants.TRAIN, self.model.train_data_handler)
         val_dict = self.report(constants.VAL, self.model.val_data_handler)
+        import ipdb
+        ipdb.set_trace()
         result = {
             constants.VAL : val_dict,
             constants.TRAIN : train_dict,
