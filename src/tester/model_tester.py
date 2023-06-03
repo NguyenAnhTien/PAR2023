@@ -52,6 +52,7 @@ class ModelTester(object):
         mA = utils.cal_acc(torch.tensor(preds, device=self.device),\
                                 torch.tensor(labels, device=self.device),\
                                                                 self.device)
+        mA = mA.cpu().detach().item()
         return {
             "mA" : mA,
             "df" : result_df
