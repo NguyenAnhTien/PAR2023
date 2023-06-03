@@ -26,7 +26,8 @@ class Configurer(object):
         self.configs  = utils.join_path((self.src, constants.YAML_DIR))
 
     def parse(
-            self, config_file
+            self, 
+            config_file
         ) -> None:
         configs = utils.read_yaml(utils.join_path((self.configs,\
                                                                 config_file)))

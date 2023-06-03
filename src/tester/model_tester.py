@@ -77,7 +77,7 @@ class ModelTester(object):
             label = sample[constants.LABEL]
             image = image.to(self.device)
             pred = self.model.predict(image)
-            pred = pred.cpu().detach().tolist()
+            pred = pred.cpu().detach().tolist()[0]
             result_df[constants.FILE_ID].append(file_id)
             result_df[constants.PREDICT].append(pred)
             result_df[constants.LABEL.upper()].append(label)
