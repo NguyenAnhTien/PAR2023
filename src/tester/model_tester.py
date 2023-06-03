@@ -29,10 +29,8 @@ class ModelTester(object):
     def run(
             self
         ) -> None:
-        # train_mA = self.report(constants.TRAIN, self.model.train_data_handler)
+        train_mA = self.report(constants.TRAIN, self.model.train_data_handler)
         val_mA = self.report(constants.VAL, self.model.val_data_handler)
-        import ipdb
-        ipdb.set_trace()
         result = {
             constants.VAL : train_mA,
             constants.TRAIN : val_mA,
@@ -55,8 +53,6 @@ class ModelTester(object):
         mA = mA.cpu().detach().item()
         preds_file_path = utils.join_path((self.report_dir, phase,\
                                                         constants.PRED_FILE))
-        import ipdb
-        ipdb.set_trace()
         utils.write_csv(result_df, preds_file_path)
         return mA
 
@@ -70,7 +66,7 @@ class ModelTester(object):
             constants.PREDICT       : [],
             constants.LABEL.upper() : []
         }
-        counter = 0
+
         for sample in tqdm(dataset_handler):
             if 'aug' in sample[constants.IMAGE_FILE]:
                 continue
@@ -84,9 +80,6 @@ class ModelTester(object):
             result_df[constants.FILE_ID].append(file_id)
             result_df[constants.PREDICT].append(pred)
             result_df[constants.LABEL.upper()].append(label)
-            if counter == 10:
-                break
-            counter += 1
         result_df = utils.create_df(result_df)
         return result_df
 
