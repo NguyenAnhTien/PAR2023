@@ -49,15 +49,14 @@ class ModelTester(object):
         result_df = self.predict(dataset_handler)
         preds = result_df[constants.PREDICT]
         labels = result_df[constants.LABEL.upper()]
-        import ipdb
-        #ipdb.set_trace()
         mA = utils.cal_acc(torch.tensor(preds, device=self.device),\
                                 torch.tensor(labels, device=self.device),\
                                                                 self.device)
         return {
-            "mA" : mA
+            "mA" : mA,
+            "df" : result_df
         }
-    
+
     @torch.no_grad()
     def predict(
             self,
