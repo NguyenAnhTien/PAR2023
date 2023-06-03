@@ -29,3 +29,5 @@ FILE_ID      = 'FILE_ID'
 PREDICT      = 'PREDICT'
 
 LOG_DIR      = 'logs'
+
+PRED_FILE    = 'preds.csv'

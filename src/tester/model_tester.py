@@ -29,13 +29,13 @@ class ModelTester(object):
     def run(
             self
         ) -> None:
-        #train_dict = self.report(constants.TRAIN, self.model.train_data_handler)
-        val_dict = self.report(constants.VAL, self.model.val_data_handler)
+        # train_mA = self.report(constants.TRAIN, self.model.train_data_handler)
+        val_mA = self.report(constants.VAL, self.model.val_data_handler)
         import ipdb
         ipdb.set_trace()
         result = {
-            constants.VAL : val_dict,
-            constants.TRAIN : train_dict,
+            constants.VAL : train_mA,
+            constants.TRAIN : val_mA,
             constants.CHECKPOINT : self.checkpoint,
         }
         utils.write_json(result, utils.join_path((self.report_dir,\
@@ -53,10 +53,12 @@ class ModelTester(object):
                                 torch.tensor(labels, device=self.device),\
                                                                 self.device)
         mA = mA.cpu().detach().item()
-        return {
-            "mA" : mA,
-            "df" : result_df
-        }
+        preds_file_path = utils.join_path((self.report_dir, phase,\
+                                                        constants.PRED_FILE))
+        import ipdb
+        ipdb.set_trace()
+        utils.write_csv(result_df, preds_file_path)
+        return mA
 
     @torch.no_grad()
     def predict(
@@ -71,7 +73,6 @@ class ModelTester(object):
         counter = 0
         for sample in tqdm(dataset_handler):
             if 'aug' in sample[constants.IMAGE_FILE]:
-                print("I am here")
                 continue
             image_file = sample[constants.IMAGE_FILE]
             file_id = utils.get_path_basename(image_file)
