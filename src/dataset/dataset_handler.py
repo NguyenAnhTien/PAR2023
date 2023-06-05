@@ -28,8 +28,8 @@ class DatasetHandler(Dataset):
     def transform_labels(
             self, labels: tuple
         ):
-        color_top = int(labels[0])
-        color_bottom = int(labels[1])
+        color_top = int(labels[0]) - 1
+        color_bottom = int(labels[1]) - 1
         gen = int(labels[2])
         bag = int(labels[3])
         hat = int(labels[4])

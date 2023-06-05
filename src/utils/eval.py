@@ -9,7 +9,7 @@ import utils
 def cal_acc(
         preds: torch.Tensor, 
         labels: tuple,
-        device: str
+        device: str = 'cpu'
     ) -> torch.Tensor:
     """
     @desc:
@@ -24,11 +24,8 @@ def cal_acc(
                         and isinstance(preds, torch.Tensor)):
         labels = utils.concat_tensors(labels, device)
         preds = torch.transpose(preds, 1, 0)
-    else:
-        labels = torch.transpose(labels, 1, 0)
-        preds = torch.transpose(preds, 1, 0)
     elementwise_comparison = torch.eq(labels, preds)
-    matching_rows = torch.sum(elementwise_comparison, dim=1)
+    matching_rows = torch.sum(elementwise_comparison, dim=0)
     accs = matching_rows / labels.shape[1]
     mA = torch.mean(accs)
     return mA
