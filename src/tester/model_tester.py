@@ -29,11 +29,13 @@ class ModelTester(object):
     def run(
             self
         ) -> None:
-        train_mA = self.report(constants.TRAIN, self.model.train_data_handler)
-        val_mA = self.report(constants.VAL, self.model.val_data_handler)
+        train_accs, train_mA = self.report(constants.TRAIN, self.model.train_data_handler)
+        val_accs, val_mA = self.report(constants.VAL, self.model.val_data_handler)
         result = {
-            constants.VAL : train_mA,
-            constants.TRAIN : val_mA,
+            constants.VAL_ACC : val_accs,
+            constants.VAL : val_mA,
+            constants.TRAIN_ACC : train_accs,
+            constants.TRAIN : train_mA,
             constants.CHECKPOINT : self.checkpoint,
         }
         utils.write_json(result, utils.join_path((self.report_dir,\
@@ -47,14 +49,14 @@ class ModelTester(object):
         result_df = self.predict(dataset_handler)
         preds = result_df[constants.PREDICT]
         labels = result_df[constants.LABEL.upper()]
-        mA = utils.cal_acc(torch.tensor(preds, device=self.device),\
+        accs, mA = utils.cal_acc(torch.tensor(preds, device=self.device),\
                                 torch.tensor(labels, device=self.device),\
                                                                 self.device)
         mA = mA.cpu().detach().item()
         preds_file_path = utils.join_path((self.report_dir, phase,\
                                                         constants.PRED_FILE))
         utils.write_csv(result_df, preds_file_path)
-        return mA
+        return accs, mA
 
     @torch.no_grad()
     def predict(
@@ -79,7 +81,7 @@ class ModelTester(object):
             pred = pred.cpu().detach().tolist()[0]
             result_df[constants.FILE_ID].append(file_id)
             result_df[constants.PREDICT].append(pred)
-            result_df[constants.LABEL.upper()].append(label)
+            result_df[constants.LABEL.upper()].append(list(label))
         result_df = utils.create_df(result_df)
         return result_df
 

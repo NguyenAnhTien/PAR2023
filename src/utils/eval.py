@@ -28,4 +28,4 @@ def cal_acc(
     matching_rows = torch.sum(elementwise_comparison, dim=0)
     accs = matching_rows / labels.shape[0]
     mA = torch.mean(accs)
-    return mA
+    return accs, mA
