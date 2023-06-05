@@ -26,6 +26,6 @@ def cal_acc(
         preds = torch.transpose(preds, 1, 0)
     elementwise_comparison = torch.eq(labels, preds)
     matching_rows = torch.sum(elementwise_comparison, dim=0)
-    accs = matching_rows / labels.shape[1]
+    accs = matching_rows / labels.shape[0]
     mA = torch.mean(accs)
     return mA
