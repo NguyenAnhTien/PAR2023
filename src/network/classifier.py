@@ -85,8 +85,8 @@ class Classifier(pl.LightningModule):
             label = item[1].type(torch.FloatTensor)
             loss += self.binary_criterion(pred, label)
         preds = self.model.predict(images)
-        acc = utils.cal_acc(preds, labels, device=self.configs.device)
-        self.monitor(constants.VAL_ACC, acc.item())
+        _, mA = utils.cal_acc(preds, labels, device=self.configs.device)
+        self.monitor(constants.VAL_ACC, mA.item())
         self.monitor(constants.VAL_LOSS, loss.detach())
         return loss
 
