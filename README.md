@@ -47,3 +47,6 @@ Only use very small portion of data with one epoch.
 1. Get in `/path/to/PAR2023` folder
 
 2. `mkdir -p data/PAR2023`
+
+# Unittest
+`python3 -m unittest`
