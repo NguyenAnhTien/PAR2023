@@ -53,7 +53,7 @@ class ModelTester(object):
                                 torch.tensor(labels, device=self.device),\
                                                                 self.device)
         mA = mA.cpu().detach().item()
-        accs = accs.cpu().detach().item()
+        accs = accs.cpu().detach().tolist()
         preds_file_path = utils.join_path((self.report_dir, phase,\
                                                         constants.PRED_FILE))
         utils.write_csv(result_df, preds_file_path)
