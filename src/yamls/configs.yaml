@@ -5,7 +5,7 @@ experiment:
 
 hyperparams:
     batch_size   : 16
-    lr           : 0.001
+    lr           : 0.0005
     weight_decay : 0
     epochs       : 100
     model_name   : 'resnet'
