@@ -5,7 +5,7 @@
 import argparse
 
 import pytorch_lightning as pl
-from lightning.pytorch.loggers import CometLogger
+from pytorch_lightning.loggers import CometLogger
 
 import utils
 import constants
