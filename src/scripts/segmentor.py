@@ -76,6 +76,7 @@ def run(
     image_files = load_images(images_dir)
     for image_file in tqdm(image_files[:10]):
         predicted_map = segment(model, processor, image_file)
+        predicted_map = predicted_map.cpu().detach().numpy()
         saved_file = image_file.replace("*.jpg", "*.pkl")
         write_pkl(saved_file, predicted_map)
 
