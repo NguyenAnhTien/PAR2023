@@ -8,6 +8,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
 
+import timm
+
 import utils
 
 class Model(nn.Module):
@@ -17,25 +19,20 @@ class Model(nn.Module):
         ) -> None:
         super(Model, self).__init__()
         self.configs = configs
-        resnet = models.resnet152(weights=True)
-        num_ftrs = resnet.fc.in_features
-        resnet.fc = nn.Linear(num_ftrs, len(self.configs.num_classes))
-        self.fc = nn.Linear(num_ftrs * 2 * 2, num_ftrs)
-        self.resnet = nn.Sequential(
-            nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False),
-            nn.BatchNorm2d(64),
-            resnet.layer1,
-            resnet.layer2,
-            resnet.layer3,
-            resnet.layer4,
-            nn.AdaptiveAvgPool2d((2, 2)),
-        )
-        self.fc1 = nn.Linear(num_ftrs, 12)
-        self.fc2 = nn.Linear(num_ftrs, 12)
-        self.fc3 = nn.Linear(num_ftrs, 1)
-        self.fc4 = nn.Linear(num_ftrs, 1)
-        self.fc5 = nn.Linear(num_ftrs, 1)
+        self.model = self.define_model(configs.model_name)
+        self.fc1 = nn.Linear(self.model.in_features, 12)
+        self.fc2 = nn.Linear(self.model.in_features, 12)
+        self.fc3 = nn.Linear(self.model.in_features, 1)
+        self.fc4 = nn.Linear(self.model.in_features, 1)
+        self.fc5 = nn.Linear(self.model.in_features, 1)
         self.relu = nn.ReLU()
+
+    def define_model(
+            self,
+            model_name: str = 'swin_tiny_patch4_window7_224',
+        ) -> nn.Module:
+        model = timm.create_model(model_name, pretrained=True)
+        return model
 
     def forward(
             self, 
