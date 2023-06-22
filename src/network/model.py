@@ -20,11 +20,13 @@ class Model(nn.Module):
         super(Model, self).__init__()
         self.configs = configs
         self.model = self.define_model(configs.model_name)
-        self.fc1 = nn.Linear(self.model.in_features, 12)
-        self.fc2 = nn.Linear(self.model.in_features, 12)
-        self.fc3 = nn.Linear(self.model.in_features, 1)
-        self.fc4 = nn.Linear(self.model.in_features, 1)
-        self.fc5 = nn.Linear(self.model.in_features, 1)
+        num_ftrs = self.model.num_features
+        self.fc = nn.Linear(1000, num_ftrs)
+        self.fc1 = nn.Linear(num_ftrs, 12)
+        self.fc2 = nn.Linear(num_ftrs, 12)
+        self.fc3 = nn.Linear(num_ftrs, 1)
+        self.fc4 = nn.Linear(num_ftrs, 1)
+        self.fc5 = nn.Linear(num_ftrs, 1)
         self.relu = nn.ReLU()
 
     def define_model(
@@ -38,17 +40,16 @@ class Model(nn.Module):
             self, 
             images: torch.Tensor
         ) -> tuple:
-        images = self.resnet(images)
+        outputs = self.model(images)
         
-        images = images.view(images.size(0), -1)
+        outputs = outputs.view(outputs.size(0), -1)
+        outputs = self.fc(outputs)
+        color_top = self.relu(self.fc1(outputs))
+        color_bottom = self.relu(self.fc2(outputs))
         
-        images = self.fc(images)
-        color_top = self.relu(self.fc1(images))
-        color_bottom = self.relu(self.fc2(images))
-        
-        gen = self.relu(self.fc3(images))
-        bag = self.relu(self.fc4(images))
-        hat = self.relu(self.fc5(images))
+        gen = self.relu(self.fc3(outputs))
+        bag = self.relu(self.fc4(outputs))
+        hat = self.relu(self.fc5(outputs))
         
         return color_top, color_bottom, gen, bag, hat
 

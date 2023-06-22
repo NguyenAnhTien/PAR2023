@@ -72,7 +72,7 @@ def train(
         offline=configs.offline_mode
     )
 
-    trainer = pl.Trainer(max_epochs=configs.epochs, devices=gpu, precision=16,\
+    trainer = pl.Trainer(max_epochs=configs.epochs, devices=gpu, precision=32,\
                         accelerator=accelerator,\
                         log_every_n_steps=1,\
                          logger=logger,\
