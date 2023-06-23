@@ -8,6 +8,7 @@ from typing import Union
 from typing import Optional
 
 import numpy
+import comet_ml
 import torch
 import torch.nn.functional as F
 import pytorch_lightning as pl
