@@ -150,7 +150,7 @@ class Classifier(pl.LightningModule):
             value: float
         ) -> None:
         self.log(key, value, on_step=False, on_epoch=True,\
-                                            batch_size=self.configs.batch_size)
+                            batch_size=self.configs.batch_size, sync_dist=True)
 
     def set_seed(
             self,
