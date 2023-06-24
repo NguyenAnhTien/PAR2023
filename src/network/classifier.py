@@ -8,7 +8,6 @@ from typing import Union
 from typing import Optional
 
 import numpy
-import comet_ml
 import torch
 import torch.nn.functional as F
 import pytorch_lightning as pl
@@ -94,8 +93,15 @@ class Classifier(pl.LightningModule):
     def configure_optimizers(
             self
         ) -> torch.optim.SGD:
-        return torch.optim.SGD(self.model.parameters(),\
+        optimizer = torch.optim.SGD(self.model.parameters(),\
                                             lr=self.configs.lr, momentum=0.9)
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,\
+                                        mode='min', factor=2e-10, patience=20)
+        return {
+            "optimizer"    : optimizer, 
+            "lr_scheduler" : scheduler,
+            "monitor"      : "val_loss"
+        }
     
     def define_criterion(
             self
@@ -126,7 +132,7 @@ class Classifier(pl.LightningModule):
         return torch.utils.data.DataLoader(dataset=self.train_data_handler,\
                                             batch_size=self.configs.batch_size,\
                                            shuffle=True,\
-                                           num_workers=8, drop_last=True)
+                                           num_workers=16, drop_last=True)
     
     def val_dataloader(
             self
@@ -134,7 +140,7 @@ class Classifier(pl.LightningModule):
         return torch.utils.data.DataLoader(dataset=self.val_data_handler,\
                                         batch_size=self.configs.batch_size,\
                                            shuffle=False,\
-                                           num_workers=8, drop_last=True)
+                                           num_workers=16, drop_last=True)
 
     def configure_callbacks(
             self
