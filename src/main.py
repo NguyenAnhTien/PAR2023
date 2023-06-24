@@ -4,6 +4,7 @@
 """
 import argparse
 
+import comet_ml
 import pytorch_lightning as pl
 from pytorch_lightning.loggers import CometLogger
 
