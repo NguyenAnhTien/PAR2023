@@ -9,8 +9,10 @@ import cv2
 import csv
 import argparse
 
-from preprocessor import PreProcessor
+from configs import Configurer
 from network import Classifier
+from preprocessor import PreProcessor
+
 
 def read_csv(
         args: argparse.Namespace,
@@ -54,6 +56,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     gt_dict, gt_num = read_csv(args)
-    preprocessor = PreProcessor().img_transforms
+    configs = Configurer('configs.yaml')
+    preprocessor = PreProcessor(configs, args.images, args.data).img_transforms
     model = load_model()
     inference(model, preprocessor, gt_dict, args)
