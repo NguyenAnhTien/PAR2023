@@ -57,6 +57,6 @@ if __name__ == '__main__':
 
     gt_dict, gt_num = read_csv(args)
     configs = Configurer('configs.yaml')
-    preprocessor = PreProcessor(configs, args.images, args.data).img_transforms
+    preprocessor = PreProcessor(configs, args.images, args.data, 'val').img_transforms
     model = load_model()
     inference(model, preprocessor, gt_dict, args)
