@@ -9,6 +9,8 @@ import cv2
 import csv
 import argparse
 
+import tqdm
+
 import utils
 from configs import Configurer
 from network import Classifier
@@ -41,10 +43,10 @@ def inference(
     ) -> None:
     with open(args.results, 'w', newline='') as res_file:
         writer = csv.writer(res_file)
-        for image_file in gt_dict.keys():
+        for image_file in tqdm.tqdm(gt_dict.keys()):
             image = utils.imread(os.path.join(args.images, image_file))
             image = preprocessor(image)
-            pred = model.predict(image)
+            pred = model.predict(image).cpu().detach().tolist()[0]
             writer.writerow([image_file, pred[0], pred[1],\
                                                 pred[2], pred[3], pred[4]])
 
