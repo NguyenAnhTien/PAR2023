@@ -1,4 +1,8 @@
-# DOCs
+# PAR2023
+
+This repository is the official implementation for the contest [International Contest on Pedestrian Attribute Recognition](https://mivia.unisa.it/par2023/#contest).
+
+We achieved the top 4 leading performances.
 
 ## prerequisites
 1. Create Wandb account at https://wandb.ai/site
